@@ -47,11 +47,11 @@ def scrape_bill(url: str, wait_time: int = 30) -> dict:
                 ))
             )
 
-            # ① scroll it into view *before* clicking
+            # scroll it into view *before* clicking
             driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
             driver.execute_script("arguments[0].click();", btn)   # JS click is more reliable
 
-            # ② wait until the button *text* flips to "Show less"
+            # wait until the button *text* flips to "Show less"
             WebDriverWait(driver, 5).until(
                 EC.text_to_be_present_in_element((By.XPATH, "//*[self::button or self::span]"),
                                                   "Show less")
@@ -95,7 +95,7 @@ def scrape_bill(url: str, wait_time: int = 30) -> dict:
         if table:
             out["actions"] = table.get_text(" ", strip=True)
 
-        out["source"] = url           # ➍ optional convenience
+        out["source"] = url          
         return out
 
     finally:
@@ -106,6 +106,6 @@ def scrape_bill(url: str, wait_time: int = 30) -> dict:
 if __name__ == "__main__":
     bill_json = scrape_bill(URL)
 
-    # pretty-print the single-bill JSON ➎ NEW
+    # pretty-print the single-bill JSON 
     print(json.dumps(bill_json, indent=2, ensure_ascii=False))
 
