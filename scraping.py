@@ -35,7 +35,7 @@ def scrape_bill(url: str, wait_time: int = 30) -> dict:
                 "table[class^='Table_tableDefaults']"))
         )
 
-        # click “View more / Show more” if the digest is truncated
+        # click “View more” if the digest is truncated
         try:
             btn = WebDriverWait(driver, 3).until(
                 EC.element_to_be_clickable((
